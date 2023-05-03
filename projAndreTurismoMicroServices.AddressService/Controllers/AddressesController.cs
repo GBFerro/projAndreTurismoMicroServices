@@ -120,10 +120,6 @@ namespace projAndreTurismoApp.AddressService.Controllers
                 return Problem("Entity set 'projAndreTurismoAppAddressServiceContext.Address'  is null.");
             }
 
-            Address addressConfirm = GetAddress().Result.Value.ToList().Where(c => c.Street == address.Street).FirstOrDefault();
-            if (addressConfirm.Street != null)
-                return addressConfirm;
-
             if (address.Id != 0)
                 address.Id = 0;
 
@@ -138,6 +134,15 @@ namespace projAndreTurismoApp.AddressService.Controllers
                 address = new Address(addressByCep, address.Number);
                 address.Complement = complement;
             }
+
+            if (_context.Address.Count() != 0)
+            {
+                Address addressConfirm = _context.Address.Include(a => a.City).ToListAsync().Result.Where(c => c.Street == address.Street).FirstOrDefault();
+
+                if (addressConfirm != null)
+                    return addressConfirm;
+            }
+
 
             _context.Address.Add(address);
             await _context.SaveChangesAsync();

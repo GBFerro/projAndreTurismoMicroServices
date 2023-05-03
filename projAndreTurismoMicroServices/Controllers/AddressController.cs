@@ -58,7 +58,7 @@ namespace projAndreTurismoApp.Controllers
         [HttpDelete]
         public async Task<ActionResult> Delete(int id)
         {
-            Address address = Get(id).Result;
+            Address address = _addressService.Get(id).Result;
 
             City cityConfirm = address.City;
             if (cityConfirm.Name != null)

@@ -13,9 +13,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "projAndreTurismoApp.Address
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "projAndreTurismoApp.CityService", "projAndreTurismoApp.CityService\projAndreTurismoApp.CityService.csproj", "{9A7722EF-DC0B-466C-9F13-7C8BB24AF58D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "projAndreTurismoApp.ClientService", "projAndreTurismoApp.ClientService\projAndreTurismoApp.ClientService.csproj", "{813698AD-DA3A-4363-BF77-C9A62190ABB4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "projAndreTurismoApp.ClientService", "projAndreTurismoApp.ClientService\projAndreTurismoApp.ClientService.csproj", "{813698AD-DA3A-4363-BF77-C9A62190ABB4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "projAndreTurismoApp.UnitTest", "projAndreTurismoApp.UnitTest\projAndreTurismoApp.UnitTest.csproj", "{DFB1F9B6-8CB7-4CD2-BCE2-1B12F25B7E39}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "projAndreTurismoApp.UnitTest", "projAndreTurismoApp.UnitTest\projAndreTurismoApp.UnitTest.csproj", "{DFB1F9B6-8CB7-4CD2-BCE2-1B12F25B7E39}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "projAndreTurismoApp.TicketService", "projAndreTurismoApp.TicketService\projAndreTurismoApp.TicketService.csproj", "{B8502D03-1B62-4256-A198-67680B891AF8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -51,6 +53,10 @@ Global
 		{DFB1F9B6-8CB7-4CD2-BCE2-1B12F25B7E39}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DFB1F9B6-8CB7-4CD2-BCE2-1B12F25B7E39}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DFB1F9B6-8CB7-4CD2-BCE2-1B12F25B7E39}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B8502D03-1B62-4256-A198-67680B891AF8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B8502D03-1B62-4256-A198-67680B891AF8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B8502D03-1B62-4256-A198-67680B891AF8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B8502D03-1B62-4256-A198-67680B891AF8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

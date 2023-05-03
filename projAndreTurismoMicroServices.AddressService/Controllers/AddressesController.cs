@@ -137,7 +137,7 @@ namespace projAndreTurismoApp.AddressService.Controllers
 
             if (_context.Address.Count() != 0)
             {
-                Address addressConfirm = _context.Address.Include(a => a.City).ToListAsync().Result.Where(c => c.Street == address.Street).FirstOrDefault();
+                Address? addressConfirm = _context.Address.Include(a => a.City).ToListAsync().Result.Where(c => c.Street == address.Street).FirstOrDefault();
 
                 if (addressConfirm != null)
                     return addressConfirm;

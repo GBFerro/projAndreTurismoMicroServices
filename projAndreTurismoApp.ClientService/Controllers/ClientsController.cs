@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -25,10 +26,10 @@ namespace projAndreTurismoApp.ClientService.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Client>>> GetClient()
         {
-          if (_context.Client == null)
-          {
-              return NotFound();
-          }
+            if (_context.Client == null)
+            {
+                return NotFound();
+            }
             return await _context.Client.Include(c => c.Address.City).ToListAsync();
         }
 
@@ -36,10 +37,10 @@ namespace projAndreTurismoApp.ClientService.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<Client>> GetClient(int id)
         {
-          if (_context.Client == null)
-          {
-              return NotFound();
-          }
+            if (_context.Client == null)
+            {
+                return NotFound();
+            }
             var client = await _context.Client.Include(c => c.Address.City).Where(cl => cl.Id == id).FirstOrDefaultAsync();
 
             if (client == null)
@@ -86,10 +87,28 @@ namespace projAndreTurismoApp.ClientService.Controllers
         [HttpPost]
         public async Task<ActionResult<Client>> PostClient(Client client)
         {
-          if (_context.Client == null)
-          {
-              return Problem("Entity set 'projAndreTurismoAppClientServiceContext.Client'  is null.");
-          }
+            if (_context.Client == null)
+            {
+                return Problem("Entity set 'projAndreTurismoAppClientServiceContext.Client'  is null.");
+            }
+
+            if (client.Id != 0)
+                client.Id = 0;
+
+            if (client.Address.Id != 0)
+                client.Address.Id = 0;
+
+            if (client.Address.City.Id != 0)
+                client.Address.City.Id = 0;
+
+            if (_context.Client.Count() != 0)
+            {
+                Client? ClientConfirm = _context.Client.Include(c => c.Address.City).ToListAsync().Result.Where(c => c.Name == client.Name).FirstOrDefault();
+
+                if (ClientConfirm != null)
+                    return ClientConfirm;
+            }
+
             _context.Client.Add(client);
             await _context.SaveChangesAsync();
 

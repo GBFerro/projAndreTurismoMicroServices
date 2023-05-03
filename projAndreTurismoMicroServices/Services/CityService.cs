@@ -41,6 +41,13 @@ namespace projAndreTurismoApp.Services
 
         public async Task<ActionResult<City>> Post(City city)
         {
+            HttpResponseMessage responseGet = await client.GetAsync(url);
+
+            var cityGet = await responseGet.Content.ReadAsStringAsync();
+            var cityAux = JsonConvert.DeserializeObject<List<City>>(cityGet).Where(c => c.Name == city.Name).FirstOrDefault();
+            if (cityAux.Name != null)
+                return cityAux;
+
             try
             {
                 HttpResponseMessage response = await client.PostAsJsonAsync(url, city);

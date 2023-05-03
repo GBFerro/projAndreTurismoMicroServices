@@ -119,10 +119,30 @@ namespace projAndreTurismoApp.AddressService.Controllers
             {
                 return Problem("Entity set 'projAndreTurismoAppAddressServiceContext.Address'  is null.");
             }
+
+            Address addressConfirm = GetAddress().Result.Value.ToList().Where(c => c.Street == address.Street).FirstOrDefault();
+            if (addressConfirm.Street != null)
+                return addressConfirm;
+
+            if (address.Id != 0)
+                address.Id = 0;
+
+            if (address.City.Id != 0)
+                address.City.Id = 0;
+
+            var addressByCep = _postOfficesService.GetAddress(address.ZipCode).Result;
+
+            if (addressByCep.Street != null)
+            {
+                var complement = address.Complement;
+                address = new Address(addressByCep, address.Number);
+                address.Complement = complement;
+            }
+
             _context.Address.Add(address);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetAddress", new { id = address.Id }, address);
+            return address;
         }
 
         // DELETE: api/Addresses/5

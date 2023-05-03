@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using System.Net;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using projAndreTurismoApp.Models;
 using projAndreTurismoApp.Models.DTO;
@@ -11,9 +12,11 @@ namespace projAndreTurismoApp.Controllers
     public class AddressController : ControllerBase
     {
         private readonly AddressService _addressService;
-        public AddressController(AddressService addressService)
+        private readonly CityService _cityService;
+        public AddressController(AddressService addressService, CityService cityService)
         {
             _addressService = addressService;
+            _cityService = cityService;
         }
 
         [HttpGet("{zip:length(8)}")]
@@ -55,6 +58,12 @@ namespace projAndreTurismoApp.Controllers
         [HttpDelete]
         public async Task<ActionResult> Delete(int id)
         {
+            Address address = Get(id).Result;
+
+            City cityConfirm = address.City;
+            if (cityConfirm.Name != null)
+                _cityService.Delete(cityConfirm.Id);
+
             return _addressService.Delete(id).Result;
         }
     }

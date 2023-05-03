@@ -25,10 +25,10 @@ namespace projAndreTurismoApp.CityService.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<City>>> GetCity()
         {
-          if (_context.City == null)
-          {
-              return NotFound();
-          }
+            if (_context.City == null)
+            {
+                return NotFound();
+            }
             return await _context.City.ToListAsync();
         }
 
@@ -36,10 +36,10 @@ namespace projAndreTurismoApp.CityService.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<City>> GetCity(int id)
         {
-          if (_context.City == null)
-          {
-              return NotFound();
-          }
+            if (_context.City == null)
+            {
+                return NotFound();
+            }
             var city = await _context.City.FindAsync(id);
 
             if (city == null)
@@ -86,14 +86,19 @@ namespace projAndreTurismoApp.CityService.Controllers
         [HttpPost]
         public async Task<ActionResult<City>> PostCity(City city)
         {
-          if (_context.City == null)
-          {
-              return Problem("Entity set 'projAndreTurismoAppCityServiceContext.City'  is null.");
-          }
+            if (_context.City == null)
+            {
+                return Problem("Entity set 'projAndreTurismoAppCityServiceContext.City'  is null.");
+            }
+
+            City cityConfirm = GetCity().Result.Value.ToList().Where(c => c.Name == city.Name).FirstOrDefault();
+            if (cityConfirm.Name != null)
+                return cityConfirm;
+
             _context.City.Add(city);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetCity", new { id = city.Id }, city);
+            return city;
         }
 
         // DELETE: api/Cities/5

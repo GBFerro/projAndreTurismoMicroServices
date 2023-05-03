@@ -9,10 +9,10 @@ namespace projAndreTurismoApp.Controllers
     [ApiController]
     public class ClientController : ControllerBase
     {
-        private readonly HotelService _clientService;
+        private readonly ClientService _clientService;
         private readonly AddressService _addressService;
         private readonly CityService _cityService;
-        public ClientController(AddressService addressService, CityService cityService, HotelService clientService)
+        public ClientController(AddressService addressService, CityService cityService, ClientService clientService)
         {
             _addressService = addressService;
             _cityService = cityService;

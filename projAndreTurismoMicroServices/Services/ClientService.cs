@@ -4,7 +4,7 @@ using projAndreTurismoApp.Models;
 
 namespace projAndreTurismoApp.Services
 {
-    public class HotelService
+    public class ClientService
     {
         static readonly string url = "https://localhost:7237/api/Clients/";
         static readonly HttpClient client = new HttpClient();

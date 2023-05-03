@@ -6,7 +6,7 @@ namespace projAndreTurismoApp.Services
 {
     public class HotelService
     {
-        static readonly string url = "";
+        static readonly string url = "https://localhost:7092/api/Hotels/";
         static readonly HttpClient client = new HttpClient();
 
         public async Task<Hotel> Get(int id)

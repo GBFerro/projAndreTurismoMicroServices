@@ -1,4 +1,9 @@
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
+using projAndreTurismoApp.TicketService.Data;
 var builder = WebApplication.CreateBuilder(args);
+builder.Services.AddDbContext<projAndreTurismoAppTicketServiceContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("projAndreTurismoAppTicketServiceContext") ?? throw new InvalidOperationException("Connection string 'projAndreTurismoAppTicketServiceContext' not found.")));
 
 // Add services to the container.
 

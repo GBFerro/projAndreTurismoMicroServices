@@ -4,19 +4,19 @@ using projAndreTurismoApp.Models;
 
 namespace projAndreTurismoApp.Services
 {
-    public class HotelService
+    public class TicketService
     {
-        static readonly string url = "https://localhost:7237/api/Clients/";
+        static readonly string url = "https://localhost:7242/api/Tickets/";
         static readonly HttpClient client = new HttpClient();
 
-        public async Task<Client> Get(int id)
+        public async Task<Ticket> Get(int id)
         {
             try
             {
                 HttpResponseMessage response = await client.GetAsync(url + id);
                 response.EnsureSuccessStatusCode();
-                var customer = await response.Content.ReadAsStringAsync();
-                return JsonConvert.DeserializeObject<Client>(customer);
+                var ticket = await response.Content.ReadAsStringAsync();
+                return JsonConvert.DeserializeObject<Ticket>(ticket);
             }
             catch (HttpRequestException e)
             {
@@ -24,14 +24,14 @@ namespace projAndreTurismoApp.Services
             }
         }
 
-        public async Task<List<Client>> Get()
+        public async Task<List<Ticket>> Get()
         {
             try
             {
                 HttpResponseMessage response = await client.GetAsync(url);
                 response.EnsureSuccessStatusCode();
-                var customer = await response.Content.ReadAsStringAsync();
-                return JsonConvert.DeserializeObject<List<Client>>(customer);
+                var ticket = await response.Content.ReadAsStringAsync();
+                return JsonConvert.DeserializeObject<List<Ticket>>(ticket);
             }
             catch (HttpRequestException e)
             {
@@ -39,13 +39,13 @@ namespace projAndreTurismoApp.Services
             }
         }
 
-        public async Task<ActionResult<Client>> Post(Client customer)
+        public async Task<ActionResult<Ticket>> Post(Ticket ticket)
         {
             try
             {
-                HttpResponseMessage response = await client.PostAsJsonAsync(url, customer);
+                HttpResponseMessage response = await client.PostAsJsonAsync(url, ticket);
                 response.EnsureSuccessStatusCode();
-                return customer;
+                return ticket;
             }
             catch (HttpRequestException e)
             {
@@ -53,19 +53,19 @@ namespace projAndreTurismoApp.Services
             }
         }
 
-        public async Task<ActionResult<Client>> Put(int id, Client customer)
+        public async Task<ActionResult<Ticket>> Put(int id, Ticket ticket)
         {
             HttpResponseMessage responseGet = await client.GetAsync(url + id);
-            var customerGet = await responseGet.Content.ReadAsStringAsync();
-            var customerAux = JsonConvert.DeserializeObject<Client>(customerGet);
-            if (id != customerAux.Id)
+            var ticketGet = await responseGet.Content.ReadAsStringAsync();
+            var ticketAux = JsonConvert.DeserializeObject<Ticket>(ticketGet);
+            if (id != ticketAux.Id)
                 return new NotFoundResult();
 
             try
             {
-                HttpResponseMessage response = await client.PutAsJsonAsync(url + id, customer);
+                HttpResponseMessage response = await client.PutAsJsonAsync(url + id, ticket);
                 response.EnsureSuccessStatusCode();
-                return customer;
+                return ticket;
             }
             catch (Exception)
             {
@@ -78,9 +78,9 @@ namespace projAndreTurismoApp.Services
         {
             HttpResponseMessage responseGet = await client.GetAsync(url + id);
             responseGet.EnsureSuccessStatusCode();
-            var customer = await responseGet.Content.ReadAsStringAsync();
-            var customerAux = JsonConvert.DeserializeObject<Client>(customer);
-            if (id != customerAux.Id)
+            var ticket = await responseGet.Content.ReadAsStringAsync();
+            var ticketAux = JsonConvert.DeserializeObject<Ticket>(ticket);
+            if (id != ticketAux.Id)
                 return new NotFoundResult();
 
             try

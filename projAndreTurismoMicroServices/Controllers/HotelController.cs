@@ -7,56 +7,56 @@ namespace projAndreTurismoApp.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ClientController : ControllerBase
+    public class HotelController : ControllerBase
     {
-        private readonly HotelService _clientService;
+        private readonly HotelService _hotelService;
         private readonly AddressService _addressService;
         private readonly CityService _cityService;
-        public ClientController(AddressService addressService, CityService cityService, HotelService clientService)
+        public HotelController(AddressService addressService, CityService cityService, HotelService hotelService)
         {
             _addressService = addressService;
             _cityService = cityService;
-            _clientService = clientService;
+            _hotelService = hotelService;
         }
 
         [HttpGet("{id}")]
-        public async Task<Client> Get(int id)
+        public async Task<Hotel> Get(int id)
         {
-            return await _clientService.Get(id);
+            return await _hotelService.Get(id);
         }
 
         [HttpGet]
-        public async Task<List<Client>> Get()
+        public async Task<List<Hotel>> Get()
         {
-            return await _clientService.Get();
+            return await _hotelService.Get();
         }
 
         [HttpPost]
-        public async Task<ActionResult<Client>> Post(Client client)
+        public async Task<ActionResult<Hotel>> Post(Hotel hotel)
         {
-            return _clientService.Post(client).Result;
+            return _hotelService.Post(hotel).Result;
         }
 
         [HttpPut]
-        public async Task<ActionResult<Client>> Put(int id, Client client)
+        public async Task<ActionResult<Hotel>> Put(int id, Hotel hotel)
         {
-            return _clientService.Put(id, client).Result;
+            return _hotelService.Put(id, hotel).Result;
         }
 
         [HttpDelete]
         public async Task<ActionResult> Delete(int id)
         {
-            Client client = _clientService.Get(id).Result;
+            Hotel hotel = _hotelService.Get(id).Result;
 
-            Address addressConfirm = client.Address;
+            Address addressConfirm = hotel.Address;
             if (addressConfirm.Street != null)
                 _addressService.Delete(addressConfirm.Id);
 
-            City cityConfirm = client.Address.City;
+            City cityConfirm = hotel.Address.City;
             if (cityConfirm.Name != null)
                 _cityService.Delete(cityConfirm.Id);
 
-            return _clientService.Delete(id).Result;
+            return _hotelService.Delete(id).Result;
         }
     }
 }

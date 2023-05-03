@@ -103,10 +103,10 @@ namespace projAndreTurismoApp.ClientService.Controllers
 
             if (_context.Client.Count() != 0)
             {
-                Client? ClientConfirm = _context.Client.Include(c => c.Address.City).ToListAsync().Result.Where(c => c.Name == client.Name).FirstOrDefault();
+                Client? clientConfirm = _context.Client.Include(c => c.Address.City).ToListAsync().Result.Where(c => c.Name == client.Name).FirstOrDefault();
 
-                if (ClientConfirm != null)
-                    return ClientConfirm;
+                if (clientConfirm != null)
+                    return clientConfirm;
             }
 
             _context.Client.Add(client);

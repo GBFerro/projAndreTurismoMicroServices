@@ -6,17 +6,17 @@ namespace projAndreTurismoApp.Services
 {
     public class HotelService
     {
-        static readonly string url = "https://localhost:7237/api/Clients/";
+        static readonly string url = "";
         static readonly HttpClient client = new HttpClient();
 
-        public async Task<Client> Get(int id)
+        public async Task<Hotel> Get(int id)
         {
             try
             {
                 HttpResponseMessage response = await client.GetAsync(url + id);
                 response.EnsureSuccessStatusCode();
-                var customer = await response.Content.ReadAsStringAsync();
-                return JsonConvert.DeserializeObject<Client>(customer);
+                var hotel = await response.Content.ReadAsStringAsync();
+                return JsonConvert.DeserializeObject<Hotel>(hotel);
             }
             catch (HttpRequestException e)
             {
@@ -24,14 +24,14 @@ namespace projAndreTurismoApp.Services
             }
         }
 
-        public async Task<List<Client>> Get()
+        public async Task<List<Hotel>> Get()
         {
             try
             {
                 HttpResponseMessage response = await client.GetAsync(url);
                 response.EnsureSuccessStatusCode();
-                var customer = await response.Content.ReadAsStringAsync();
-                return JsonConvert.DeserializeObject<List<Client>>(customer);
+                var hotel = await response.Content.ReadAsStringAsync();
+                return JsonConvert.DeserializeObject<List<Hotel>>(hotel);
             }
             catch (HttpRequestException e)
             {
@@ -39,13 +39,13 @@ namespace projAndreTurismoApp.Services
             }
         }
 
-        public async Task<ActionResult<Client>> Post(Client customer)
+        public async Task<ActionResult<Hotel>> Post(Hotel hotel)
         {
             try
             {
-                HttpResponseMessage response = await client.PostAsJsonAsync(url, customer);
+                HttpResponseMessage response = await client.PostAsJsonAsync(url, hotel);
                 response.EnsureSuccessStatusCode();
-                return customer;
+                return hotel;
             }
             catch (HttpRequestException e)
             {
@@ -53,19 +53,19 @@ namespace projAndreTurismoApp.Services
             }
         }
 
-        public async Task<ActionResult<Client>> Put(int id, Client customer)
+        public async Task<ActionResult<Hotel>> Put(int id, Hotel hotel)
         {
             HttpResponseMessage responseGet = await client.GetAsync(url + id);
-            var customerGet = await responseGet.Content.ReadAsStringAsync();
-            var customerAux = JsonConvert.DeserializeObject<Client>(customerGet);
-            if (id != customerAux.Id)
+            var hotelGet = await responseGet.Content.ReadAsStringAsync();
+            var hotelAux = JsonConvert.DeserializeObject<Hotel>(hotelGet);
+            if (id != hotelAux.Id)
                 return new NotFoundResult();
 
             try
             {
-                HttpResponseMessage response = await client.PutAsJsonAsync(url + id, customer);
+                HttpResponseMessage response = await client.PutAsJsonAsync(url + id, hotel);
                 response.EnsureSuccessStatusCode();
-                return customer;
+                return hotel;
             }
             catch (Exception)
             {
@@ -78,9 +78,9 @@ namespace projAndreTurismoApp.Services
         {
             HttpResponseMessage responseGet = await client.GetAsync(url + id);
             responseGet.EnsureSuccessStatusCode();
-            var customer = await responseGet.Content.ReadAsStringAsync();
-            var customerAux = JsonConvert.DeserializeObject<Client>(customer);
-            if (id != customerAux.Id)
+            var hotel = await responseGet.Content.ReadAsStringAsync();
+            var hotelAux = JsonConvert.DeserializeObject<Hotel>(hotel);
+            if (id != hotelAux.Id)
                 return new NotFoundResult();
 
             try

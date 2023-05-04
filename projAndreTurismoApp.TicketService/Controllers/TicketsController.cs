@@ -103,7 +103,7 @@ namespace projAndreTurismoApp.TicketService.Controllers
             if (_context.Ticket.Count() != 0)
             {
                 Ticket? ticketConfirm = _context.Ticket.Include(c => c.Departure.City).Include(c => c.Arrival.City)
-                    .ToListAsync().Result.Where(t => (t.Arrival == ticket.Arrival) || (t.Departure == ticket.Departure)).FirstOrDefault();
+                    .ToListAsync().Result.Where(t => (t.Arrival == ticket.Arrival) && (t.Departure == ticket.Departure)).FirstOrDefault();
 
                 if (ticketConfirm != null)
                     return ticketConfirm;

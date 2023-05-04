@@ -10,14 +10,12 @@ namespace projAndreTurismoApp.Controllers
     public class TicketController : ControllerBase
     {
         private readonly TicketService _ticketService;
-        private readonly HotelService _clientService;
         private readonly AddressService _addressService;
         private readonly CityService _cityService;
         public TicketController(AddressService addressService, CityService cityService, HotelService clientService, TicketService ticketService)
         {
             _addressService = addressService;
             _cityService = cityService;
-            _clientService = clientService;
             _ticketService = ticketService;
         }
 
